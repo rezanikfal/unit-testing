@@ -1,35 +1,26 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { TestService } from './services/test.service';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+  let service: TestService;
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(TestService);
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('check the service exists', () => {
+    expect(service).toBeTruthy();
   });
 
-  it(`should have as title 'unit-testing'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('unit-testing');
+  it('check the add method exists', () => {
+    expect(service.add(1, 2)).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, unit-testing');
+  it('check the add method work correctly', () => {
+    expect(service.add(1, 2)).toBe(3);
+  });
+
+  it('check the add method work correctly with decimals', () => {
+    expect(service.add(1.33, 2.3423423)).toBeCloseTo(3.66, 1);
   });
 });
